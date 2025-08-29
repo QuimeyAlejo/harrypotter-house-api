@@ -29,7 +29,7 @@ export const updateCharacter = async (req, res) => {
     const {name,lastName,house} = req.body
 try {
     
-    const character = await Character.findByPk(id)
+    const character = await Character.findByPk(id);
     if (!character)
         return res.status(404).json({message:'Personaje no encontrado'})
     
@@ -54,7 +54,7 @@ export const getCharacterById =async(req,res) => {
     res.send(character)
 }
 export const deleteCharacter = async(req,res)=> {
-    const {id} = req.params
+    const {id} = req.params;
     
     try {
         
@@ -62,10 +62,10 @@ export const deleteCharacter = async(req,res)=> {
     
         if(!character){
     
-           return res.status(400).send({message: "character not found"})
+           return res.status(404).send({message: "character not found"})
         }
         await character.destroy();
-        res.status(200).json({message: `El personaje con el ${id} ha sido eliminado`})
+        res.send( `El personaje con el ${id} ha sido eliminado`)
     } catch (error) {
         console.error("Error al eliminar personaje:", error);
         res.status(500).json({ message: "Error al eliminar el personaje",error: error.message  });
